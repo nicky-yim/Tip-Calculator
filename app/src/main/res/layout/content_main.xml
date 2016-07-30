@@ -5,118 +5,309 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="me.nyim.tipcalculatorlog.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="me.nyim.tipcalculator.MainActivity"
+    tools:showIn="@layout/activity_main"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAmount"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_top_margin"
+            android:layout_marginBottom="@dimen/content_bottom_margin"
+            android:paddingLeft="@dimen/content_wrap_margin"
+            android:text="@string/dollar_sign"
+            android:textSize="@dimen/bill_amount_font"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/bill_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_top_margin"
+            android:layout_marginBottom="@dimen/content_bottom_margin"
+            android:paddingLeft="@dimen/content_wrap_margin"
+            android:paddingRight="@dimen/content_wrap_margin"
+            android:text="@string/bill_amount"
+            android:textSize="@dimen/bill_amount_font"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:gravity="end" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp">
+        android:paddingLeft="@dimen/content_wrap_margin"
+        android:paddingRight="@dimen/content_wrap_margin"
+        android:layout_marginTop="@dimen/content_top_margin" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="100" >
+            android:layout_marginTop="@dimen/content_top_margin"
+            android:layout_marginBottom="@dimen/content_bottom_margin"
+            android:weightSum="2">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:text="@string/bill_total"
-                android:textSize="@dimen/abc_text_size_medium_material" />
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:weightSum="3">
 
-            <EditText
-                android:id="@+id/bill_total"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tip"
+                    android:textSize="@dimen/content_font"/>
+
+                <Spinner
+                    android:id="@+id/tip_options"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:gravity="end"
-                android:layout_weight="50"/>
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/content_wrap_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dollar_sign"
+                    android:textSize="@dimen/content_font"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tip_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tip_amount"
+                    android:textSize="@dimen/content_font"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="end" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="100" >
+            android:layout_marginTop="@dimen/content_top_margin"
+            android:layout_marginBottom="@dimen/content_bottom_margin"
+            android:weightSum="2">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:text="@string/tip_percent"
-                android:textSize="@dimen/abc_text_size_medium_material"/>
-
-            <EditText
-                android:id="@+id/tip_percent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:gravity="end"
-                android:layout_weight="50" />
-        </LinearLayout>
-
-        <SeekBar
-            android:id="@+id/tip_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:progress="13"
-            android:max="30" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:text="@string/tip_amount"
-                android:textSize="@dimen/abc_text_size_medium_material"/>
-
-            <EditText
-                android:id="@+id/tip_amount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:gravity="end"
-                android:layout_weight="50"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
+                android:layout_weight="1"
                 android:text="@string/total"
-                android:textSize="@dimen/abc_text_size_medium_material"/>
+                android:textSize="@dimen/content_font"/>
 
-            <EditText
-                android:id="@+id/total"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:gravity="end"
-                android:layout_weight="50"/>
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/content_wrap_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dollar_sign"
+                    android:textSize="@dimen/content_font"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/bill_amount"
+                    android:textSize="@dimen/content_font"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="end" />
+
+            </LinearLayout>
         </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/one"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/one"
+                android:textAlignment="center"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+            <TextView
+                android:id="@+id/two"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/two"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+            <TextView
+                android:id="@+id/three"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/three"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/four"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/four"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+            <TextView
+                android:id="@+id/five"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/five"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+            <TextView
+                android:id="@+id/six"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/six"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/seven"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/seven"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+            <TextView
+                android:id="@+id/eight"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/eight"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+            <TextView
+                android:id="@+id/nine"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/nine"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/clr"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/clr"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+            <TextView
+                android:id="@+id/zero"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/zero"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+            <TextView
+                android:id="@+id/del"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/del"
+                android:gravity="center_vertical|center_horizontal"
+                android:textSize="@dimen/keypad_font"
+                android:clickable="true" />
+        </LinearLayout>
+
+
+
 
     </LinearLayout>
 
