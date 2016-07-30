@@ -13,8 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -25,20 +23,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView bill_amount = null;
     private TextView tip_amount = null;
     private TextView total = null;
+    private TextView split = null;
     private ArrayList<String> tip_options = null;
+    private ArrayList<String> split_options = null;
     private Spinner tip_spinner = null;
+    private Spinner split_spinner = null;
     private String tip_percent = "15%";
-
-    /*private EditText bill_total = null;
-    private EditText total = null;
-    private SeekBar tip_bar = null;
-    private EditText tip_percent = null;
-    private EditText tip_amount = null;
-
-    private BigDecimal _bill_total;
-    private BigDecimal _tip_percent;
-    private BigDecimal _tip_amount;
-    private BigDecimal _total;*/
+    private String split_num = "1";
+    private final static int MAX_TIP = 30;
+    private final static int MAX_SPLIT = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         bill_amount = (TextView) findViewById(R.id.bill_amount);
         tip_amount = (TextView) findViewById(R.id.tip_amount);
         total = (TextView) findViewById(R.id.total);
+        split = (TextView) findViewById(R.id.split_amount);
 
         TextView one = (TextView) findViewById(R.id.one);
         TextView two = (TextView) findViewById(R.id.two);
@@ -63,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         TextView zero = (TextView) findViewById(R.id.zero);
         TextView clr = (TextView) findViewById(R.id.clr);
         TextView del = (TextView) findViewById(R.id.del);
+
         // For sure not the best way to do it but meh
         one.setOnClickListener(new KeypadListener());
         two.setOnClickListener(new KeypadListener());
@@ -80,18 +75,19 @@ public class MainActivity extends AppCompatActivity {
         // Populate tip percentage lists for spinner
         tip_options = new ArrayList<String>();
         String tmp = "";
-        for (int i = 10; i <= 30; i++) {
+        for (int i = 10; i <= MAX_TIP; i++) {
             tmp = String.valueOf(i) + "%";
             tip_options.add(tmp);
         }
+
         tip_spinner = (Spinner) findViewById(R.id.tip_options);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner, tip_options);
-        tip_spinner.setAdapter(adapter);
+        ArrayAdapter<String> tip_adapter = new ArrayAdapter<String>(this, R.layout.spinner, tip_options);
+        tip_spinner.setAdapter(tip_adapter);
         tip_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 tip_percent = adapterView.getItemAtPosition(i).toString();
-                format_amount();
+                calc_amount();
             }
 
             @Override
@@ -99,47 +95,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        tip_spinner.setSelection(adapter.getPosition(tip_percent));
+        tip_spinner.setSelection(tip_adapter.getPosition(tip_percent));
 
-        /*bill_total = (EditText) findViewById(R.id.bill_total);
-        bill_total.setText("0.00");
+        // Populate split numbers for spinner
+        split_options = new ArrayList<String>();
+        for (int i = 1; i <= MAX_SPLIT; i++) {
+            tmp = String.valueOf(i);
+            split_options.add(tmp);
+        }
 
-        total = (EditText) findViewById(R.id.total);
-        total.setKeyListener(null);
-        total.setText("0.00");
-
-        tip_bar = (SeekBar) findViewById(R.id.tip_bar);
-
-        tip_percent = (EditText) findViewById(R.id.tip_percent);
-        tip_amount = (EditText) findViewById(R.id.tip_amount);
-        tip_amount.setKeyListener(null);
-        tip_percent.setKeyListener(null);
-        tip_amount.setText("0.00");
-        tip_percent.setText(String.valueOf(tip_bar.getProgress()));
-        //calc();
-
-        tip_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        split_spinner = (Spinner) findViewById(R.id.split_options);
+        ArrayAdapter<String> split_adapter = new ArrayAdapter<String>(this, R.layout.spinner, split_options);
+        split_spinner.setAdapter(split_adapter);
+        split_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                tip_percent = (EditText) findViewById(R.id.tip_percent);
-                tip_percent.setText(String.valueOf(i));
-                calc();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                split_num = adapterView.getItemAtPosition(i).toString();
+                calc_amount();
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
-
-        // bill_total.addTextChangedListener(new CurrencyTextWatcher());
-        //total.addTextChangedListener(new CurrencyTextWatcher());
-        */
+        split_spinner.setSelection(split_adapter.getPosition(split_num));
     }
 
     @Override
@@ -164,10 +144,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void format_amount() {
+    private void calc_amount() {
         BigDecimal f_amount;
         BigDecimal f_tip;
         BigDecimal f_total;
+        BigDecimal f_split;
+
         if (amount.length() == 0 | amount.equals("")) {
             f_amount = BigDecimal.ZERO;
         } else {
@@ -179,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
         f_tip = f_tip.multiply(f_amount);
         f_total = f_amount.add(f_tip);
 
+        f_split = f_total.divide(new BigDecimal(split_num), 2, BigDecimal.ROUND_CEILING);
+
         NumberFormat n = NumberFormat.getInstance();
         n.setMinimumFractionDigits(2);
         n.setMaximumFractionDigits(2);
@@ -186,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         bill_amount.setText(n.format(f_amount));
         tip_amount.setText(n.format(f_tip));
         total.setText(n.format(f_total));
+        split.setText(n.format(f_split));
     }
 
     private void update_amount(String s) {
@@ -198,12 +183,12 @@ public class MainActivity extends AppCompatActivity {
         } else {
             if (s.equals("0") && amount.length() == 0) {
                 return;
-            } else if (amount.length() > 4) {
+            } else if (amount.length() > 5) {
                 return;
             }
             amount = amount + s;
         }
-        format_amount();
+        calc_amount();
     }
 
     private class KeypadListener implements View.OnClickListener {
@@ -213,27 +198,4 @@ public class MainActivity extends AppCompatActivity {
             update_amount(((TextView) view).getText().toString());
         }
     }
-
-    /*private void calc() {
-        bill_total = (EditText) findViewById(R.id.bill_total);
-        tip_percent = (EditText) findViewById(R.id.tip_percent);
-        tip_amount = (EditText) findViewById(R.id.tip_amount);
-        total = (EditText) findViewById(R.id.total);
-
-        _bill_total = new BigDecimal(bill_total.getText().toString());
-        _tip_percent = new BigDecimal(tip_percent.getText().toString());
-        _tip_amount = new BigDecimal(tip_amount.getText().toString());
-        _total = new BigDecimal(total.getText().toString());
-
-        _tip_percent = _tip_percent.divide(new BigDecimal("100"), 2, BigDecimal.ROUND_HALF_UP);
-        _tip_amount = _bill_total.multiply(_tip_percent);
-        _tip_amount = _tip_amount.setScale(2, RoundingMode.CEILING);
-        _total = _bill_total.add(_tip_amount);
-
-        bill_total.setText(_bill_total.toString());
-        tip_percent.setText(_tip_percent.multiply(new BigDecimal("100")).toBigInteger().toString());
-        tip_amount.setText(_tip_amount.toString());
-        total.setText(_total.toString());
-    }*/
-
 }

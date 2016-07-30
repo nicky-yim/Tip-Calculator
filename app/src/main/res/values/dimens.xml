@@ -4,9 +4,11 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="bill_amount_font">48sp</dimen>
-    <dimen name="content_font">24sp</dimen>
+    <dimen name="content_font">20sp</dimen>
+    <dimen name="split_font">18sp</dimen>
     <dimen name="keypad_font">36sp</dimen>
     <dimen name="content_wrap_margin">32dp</dimen>
     <dimen name="content_top_margin">8dp</dimen>
     <dimen name="content_bottom_margin">8dp</dimen>
+    <dimen name="spinner_font">16sp</dimen>
 </resources>

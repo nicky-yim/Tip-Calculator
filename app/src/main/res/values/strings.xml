@@ -18,13 +18,6 @@
     <string name="zero">0</string>
     <string name="clr">CLR</string>
     <string name="del">DEL</string>
-    <string name="tip_1">12%</string>
-    <string name="tip_2">15%</string>
-    <string name="tip_3">18%</string>
-    <string name="tip_4">20%</string>
-
-    <string name="bill_total">Bill Total</string>
-    <string name="tip_percent">Tip Percentage (%)</string>
-    <string name="tip_amoun222t">Tip Amount</string>
-
+    <string name="split">Split</string>
+    <string name="split_amount">0.00</string>
 </resources>

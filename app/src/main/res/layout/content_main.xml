@@ -122,7 +122,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/total"
-                android:textSize="@dimen/content_font"/>
+                android:textSize="@dimen/content_font"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -150,9 +151,74 @@
                     android:gravity="end" />
 
             </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorAmount"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/content_top_margin"
+            android:layout_marginBottom="@dimen/content_bottom_margin"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/split"
+                    android:textSize="@dimen/split_font"/>
+
+                <Spinner
+                    android:id="@+id/split_options"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/content_wrap_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dollar_sign"
+                    android:textSize="@dimen/split_font"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/split_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/split_amount"
+                    android:textSize="@dimen/split_font"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="end" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
+
 
 
     <LinearLayout
