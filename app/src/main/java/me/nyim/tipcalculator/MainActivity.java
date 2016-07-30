@@ -19,19 +19,26 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String amount = "";
     private TextView bill_amount = null;
     private TextView tip_amount = null;
     private TextView total = null;
     private TextView split = null;
+
     private ArrayList<String> tip_options = null;
     private ArrayList<String> split_options = null;
+
     private Spinner tip_spinner = null;
     private Spinner split_spinner = null;
-    private String tip_percent = "15%";
-    private String split_num = "1";
+
+    private String amount;
+    private String tip_percent;
+    private String split_num;
+
     private final static int MAX_TIP = 30;
     private final static int MAX_SPLIT = 30;
+    private final static String BILL_AMOUNT = "BILL_AMOUNT";
+    private final static String TIP_PERCENT = "TIP_PERCENT";
+    private final static String SPLIT_NUM = "SPLIT_NUM";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (savedInstanceState == null) {
+            amount = "";
+            tip_percent = "15%";
+            split_num = "1";
+        } else {
+            amount = savedInstanceState.getString(BILL_AMOUNT);
+            tip_percent = savedInstanceState.getString(TIP_PERCENT);
+            split_num = savedInstanceState.getString(SPLIT_NUM);
+        }
 
         bill_amount = (TextView) findViewById(R.id.bill_amount);
         tip_amount = (TextView) findViewById(R.id.tip_amount);
@@ -123,6 +140,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(BILL_AMOUNT, amount);
+        outState.putString(TIP_PERCENT, tip_percent);
+        outState.putString(SPLIT_NUM, split_num);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -161,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         f_tip = f_tip.multiply(f_amount);
         f_total = f_amount.add(f_tip);
 
-        f_split = f_total.divide(new BigDecimal(split_num), 2, BigDecimal.ROUND_CEILING);
+        f_split = f_total.divide(new BigDecimal(split_num), 2, BigDecimal.ROUND_HALF_UP);
 
         NumberFormat n = NumberFormat.getInstance();
         n.setMinimumFractionDigits(2);
