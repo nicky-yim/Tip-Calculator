@@ -9,7 +9,7 @@ I don't bother coming up with a fancy name to call it because **tip calculator**
 
 # Features
 What do you expect?
-* Calculate tip -- duh.
+* Tip calculation -- duh.
 * Able to select tip percentage
 * Split bill
 * Immediate calculation -- no need to press the ugly "Calculate" button
