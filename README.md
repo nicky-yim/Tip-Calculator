@@ -3,9 +3,7 @@ My first Android application. Might come in handy some day I suppose?
 
 Thanks to [this video](https://www.youtube.com/watch?v=kkYIMZw9gzQ) and some other tip calculators on Play Store for reference.
 
-Yeah, there is already a lot of tip caculators, but I just want to implement a tip calculator in my own way.
-
-I don't bother coming up with a fancy name to call it because **tip calculator** is probably the first keyword we would think of when we need one?
+Yeah, there is already a lot of tip caculators, but I just want to implement a tip calculator in my own way and most of all, gain valuable experience.
 
 # Features
 What do you expect?
