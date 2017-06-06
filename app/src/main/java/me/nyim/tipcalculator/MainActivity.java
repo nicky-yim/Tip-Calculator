@@ -165,6 +165,14 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.reset) {
+            amount = "";
+            // Reset tip spinner to 15%
+            tip_spinner.setSelection(5);
+            // and split spinner to 1
+            split_spinner.setSelection(0);
+            calc_amount();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
