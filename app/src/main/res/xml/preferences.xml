@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:title="@string/default_tip"
+        android:key="default_tip"
+        android:defaultValue="@string/default_tip_value" />
+
+    <EditTextPreference
+        android:title="@string/default_split"
+        android:key="default_split"
+        android:defaultValue="@string/default_split_value" />
+</PreferenceScreen>

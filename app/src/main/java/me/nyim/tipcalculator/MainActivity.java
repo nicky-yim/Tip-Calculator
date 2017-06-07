@@ -1,8 +1,7 @@
 package me.nyim.tipcalculator;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -164,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         } else if (id == R.id.reset) {
             amount = "";
@@ -231,5 +232,11 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View view) {
             update_amount(((TextView) view).getText().toString());
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //loadPreference();
     }
 }

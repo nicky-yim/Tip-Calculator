@@ -21,4 +21,10 @@
     <string name="del">DEL</string>
     <string name="split">Split</string>
     <string name="split_amount">0.00</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="default_tip">Default Tip Percentage</string>
+    <string name="default_tip_value">15%</string>
+    <string name="default_split">Default Split</string>
+    <string name="default_split_value">1</string>
 </resources>
