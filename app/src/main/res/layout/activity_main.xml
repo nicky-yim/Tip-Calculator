@@ -26,29 +26,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorAmount"
+            android:paddingTop="@dimen/bill_padding"
+            android:paddingBottom="@dimen/bill_padding"
             android:orientation="horizontal"
-            android:weightSum="100">
+            android:weightSum="2">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_top_margin"
-                android:layout_marginBottom="@dimen/content_bottom_margin"
-                android:paddingLeft="@dimen/content_wrap_margin"
-                android:text="@string/dollar_sign"
-                android:textSize="@dimen/bill_amount_font"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"/>
-            <TextView
-                android:id="@+id/bill_amount"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_top_margin"
-                android:layout_marginBottom="@dimen/content_bottom_margin"
-                android:paddingLeft="@dimen/content_wrap_margin"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/content_wrap_margin"
+                    android:text="@string/bill_total"
+                    android:textSize="@dimen/bill_font"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/dollar_sign"
+                    android:textSize="@dimen/bill_font"
+                    android:textStyle="bold"
+                    android:paddingLeft="@dimen/content_wrap_margin"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="end"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/bill_amount"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingRight="@dimen/content_wrap_margin"
                 android:text="@string/bill_amount"
-                android:textSize="@dimen/bill_amount_font"
+                android:textSize="@dimen/bill_font"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:gravity="end" />
@@ -60,14 +80,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="@dimen/content_wrap_margin"
-            android:paddingRight="@dimen/content_wrap_margin"
-            android:layout_marginTop="@dimen/content_top_margin" >
+            android:paddingRight="@dimen/content_wrap_margin" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/content_top_margin"
                 android:layout_marginBottom="@dimen/content_bottom_margin"
                 android:weightSum="2">
 
@@ -85,11 +103,13 @@
                         android:text="@string/tip"
                         android:textSize="@dimen/content_font"/>
 
-                    <Spinner
-                        android:id="@+id/tip_options"
+                    <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:id="@+id/tip_option"
+                        android:text="@string/default_tip_percentage"
+                        android:textSize="@dimen/button_font"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -97,7 +117,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:paddingLeft="@dimen/content_wrap_margin">
+                    android:paddingLeft="@dimen/content_wrap_margin"
+                    android:layout_gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -121,12 +142,16 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorAmount"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/content_top_margin"
-                android:layout_marginBottom="@dimen/content_bottom_margin"
                 android:weightSum="2">
 
                 <TextView
@@ -166,16 +191,10 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/colorAmount"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/content_top_margin"
                 android:layout_marginBottom="@dimen/content_bottom_margin"
                 android:weightSum="2">
 
@@ -193,11 +212,13 @@
                         android:text="@string/split"
                         android:textSize="@dimen/split_font"/>
 
-                    <Spinner
-                        android:id="@+id/split_options"
+                    <Button
+                        android:id="@+id/split_option"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        android:text="@string/default_split_value"
+                        android:textSize="@dimen/button_font"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -205,7 +226,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:paddingLeft="@dimen/content_wrap_margin">
+                    android:paddingLeft="@dimen/content_wrap_margin"
+                    android:layout_gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -227,11 +249,11 @@
 
                 </LinearLayout>
 
+
+
             </LinearLayout>
 
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"

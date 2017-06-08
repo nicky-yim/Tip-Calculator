@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditTextPreference
-        android:title="@string/default_tip"
-        android:key="default_tip"
-        android:defaultValue="@string/default_tip_value" />
 
-    <EditTextPreference
-        android:title="@string/default_split"
+    <me.nyim.tipcalculator.NumberPickerPreference
+        android:key="default_tip"
+        android:title="@string/default_tip"
+        android:defaultValue="15"
+        android:summary="15"
+        min="0"
+        max="100" />
+
+    <me.nyim.tipcalculator.NumberPickerPreference
         android:key="default_split"
-        android:defaultValue="@string/default_split_value" />
+        android:title="@string/default_split"
+        android:defaultValue="2"
+        android:summary="2"
+        min="1"
+        max="30" />
+
 </PreferenceScreen>

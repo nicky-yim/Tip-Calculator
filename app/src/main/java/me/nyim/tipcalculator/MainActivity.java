@@ -1,43 +1,39 @@
 package me.nyim.tipcalculator;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView bill_amount = null;
     private TextView tip_amount = null;
+    private TextView tip_value = null;
     private TextView total = null;
     private TextView split = null;
-
-    private ArrayList<String> tip_options = null;
-    private ArrayList<String> split_options = null;
-
-    private Spinner tip_spinner = null;
-    private Spinner split_spinner = null;
+    private TextView split_value = null;
 
     private String amount;
     private String tip_percent;
     private String split_num;
+    private String default_tip;
+    private String default_split;
 
-    private final static int MAX_TIP = 30;
-    private final static int MAX_SPLIT = 30;
+    private SharedPreferences pref;
+
     private final static String BILL_AMOUNT = "BILL_AMOUNT";
-    private final static String TIP_PERCENT = "TIP_PERCENT";
-    private final static String SPLIT_NUM = "SPLIT_NUM";
+    //private final static String TIP_PERCENT = "TIP_PERCENT";
+    //private final static String SPLIT_NUM = "SPLIT_NUM";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +42,29 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (savedInstanceState == null) {
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        default_tip = String.valueOf(pref.getInt("default_tip", 15));
+        default_split = String.valueOf(pref.getInt("default_split", 2));
+
+        tip_percent = default_tip;
+        split_num = default_split;
+
+       if (savedInstanceState == null) {
             amount = "";
-            tip_percent = "15%";
-            split_num = "1";
         } else {
             amount = savedInstanceState.getString(BILL_AMOUNT);
-            tip_percent = savedInstanceState.getString(TIP_PERCENT);
-            split_num = savedInstanceState.getString(SPLIT_NUM);
         }
+
 
         bill_amount = (TextView) findViewById(R.id.bill_amount);
         tip_amount = (TextView) findViewById(R.id.tip_amount);
         total = (TextView) findViewById(R.id.total);
         split = (TextView) findViewById(R.id.split_amount);
+        tip_value = (TextView) findViewById(R.id.tip_option);
+        split_value = (TextView) findViewById(R.id.split_option);
+
+        tip_value.setText(tip_percent.toString() + "%");
+        split_value.setText(split_num.toString());
 
         TextView one = (TextView) findViewById(R.id.one);
         TextView two = (TextView) findViewById(R.id.two);
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         TextView clr = (TextView) findViewById(R.id.clr);
         TextView del = (TextView) findViewById(R.id.del);
 
-        // For sure not the best way to do it but meh
+        // Might not be the best way to do it but meh
         one.setOnClickListener(new KeypadListener());
         two.setOnClickListener(new KeypadListener());
         three.setOnClickListener(new KeypadListener());
@@ -88,54 +93,7 @@ public class MainActivity extends AppCompatActivity {
         clr.setOnClickListener(new KeypadListener());
         del.setOnClickListener(new KeypadListener());
 
-        // Populate tip percentage lists for spinner
-        tip_options = new ArrayList<String>();
-        String tmp = "";
-        for (int i = 10; i <= MAX_TIP; i++) {
-            tmp = String.valueOf(i) + "%";
-            tip_options.add(tmp);
-        }
-
-        tip_spinner = (Spinner) findViewById(R.id.tip_options);
-        ArrayAdapter<String> tip_adapter = new ArrayAdapter<String>(this, R.layout.spinner, tip_options);
-        tip_spinner.setAdapter(tip_adapter);
-        tip_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                tip_percent = adapterView.getItemAtPosition(i).toString();
-                calc_amount();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        tip_spinner.setSelection(tip_adapter.getPosition(tip_percent));
-
-        // Populate split numbers for spinner
-        split_options = new ArrayList<String>();
-        for (int i = 1; i <= MAX_SPLIT; i++) {
-            tmp = String.valueOf(i);
-            split_options.add(tmp);
-        }
-
-        split_spinner = (Spinner) findViewById(R.id.split_options);
-        ArrayAdapter<String> split_adapter = new ArrayAdapter<String>(this, R.layout.spinner, split_options);
-        split_spinner.setAdapter(split_adapter);
-        split_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                split_num = adapterView.getItemAtPosition(i).toString();
-                calc_amount();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        split_spinner.setSelection(split_adapter.getPosition(split_num));
+        calc_amount();
     }
 
     @Override
@@ -143,8 +101,6 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         outState.putString(BILL_AMOUNT, amount);
-        outState.putString(TIP_PERCENT, tip_percent);
-        outState.putString(SPLIT_NUM, split_num);
     }
 
     @Override
@@ -168,10 +124,15 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.reset) {
             amount = "";
-            // Reset tip spinner to 15%
-            tip_spinner.setSelection(5);
-            // and split spinner to 1
-            split_spinner.setSelection(0);
+            default_split = String.valueOf(pref.getInt("default_split", 2));
+            default_tip = String.valueOf(pref.getInt("default_tip", 15));
+
+            tip_percent = default_tip;
+            split_num = default_split;
+
+            tip_value.setText(tip_percent.toString() + "%");
+            split_value.setText(split_num.toString());
+
             calc_amount();
             return true;
         }
@@ -236,7 +197,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        calc_amount();
         super.onResume();
-        //loadPreference();
     }
+
 }

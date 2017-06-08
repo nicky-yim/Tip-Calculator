@@ -2,11 +2,15 @@ package me.nyim.tipcalculator;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -28,14 +32,6 @@ public class SettingsActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-        public static class SettingsFragment extends PreferenceFragment {
-            @Override
-            public void onCreate(Bundle savedInstanceState) {
-                super.onCreate(savedInstanceState);
-                addPreferencesFromResource(R.xml.preferences);
-            }
-        }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
@@ -46,4 +42,5 @@ public class SettingsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
