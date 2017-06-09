@@ -13,4 +13,5 @@
     <dimen name="content_bottom_margin">8dp</dimen>
     <dimen name="bill_padding">16dp</dimen>
     <dimen name="spinner_font">16sp</dimen>
+    <dimen name="np_top">64dp</dimen>
 </resources>

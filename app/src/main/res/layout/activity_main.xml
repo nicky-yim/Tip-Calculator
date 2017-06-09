@@ -109,7 +109,8 @@
                         android:layout_weight="2"
                         android:id="@+id/tip_option"
                         android:text="@string/default_tip_percentage"
-                        android:textSize="@dimen/button_font"/>
+                        android:textSize="@dimen/button_font"
+                        android:backgroundTint="@color/colorAmount" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -218,7 +219,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:text="@string/default_split_value"
-                        android:textSize="@dimen/button_font"/>
+                        android:textSize="@dimen/button_font"
+                        android:backgroundTint="@color/colorAmount" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -249,11 +251,14 @@
 
                 </LinearLayout>
 
-
-
             </LinearLayout>
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAmount"/>
 
         <LinearLayout
             android:layout_width="match_parent"

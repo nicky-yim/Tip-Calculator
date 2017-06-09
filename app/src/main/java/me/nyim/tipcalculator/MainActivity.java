@@ -1,14 +1,19 @@
 package me.nyim.tipcalculator;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -18,14 +23,17 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView bill_amount = null;
     private TextView tip_amount = null;
-    private TextView tip_value = null;
     private TextView total = null;
     private TextView split = null;
-    private TextView split_value = null;
+    
+    private Button tip_button = null;
+    private Button split_button = null;
+    private AlertDialog tip_alertDialog = null;
+    private AlertDialog split_alertDialog = null;
 
     private String amount;
     private String tip_percent;
-    private String split_num;
+    private String split_value;
     private String default_tip;
     private String default_split;
 
@@ -33,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final static String BILL_AMOUNT = "BILL_AMOUNT";
     //private final static String TIP_PERCENT = "TIP_PERCENT";
-    //private final static String SPLIT_NUM = "SPLIT_NUM";
+    //private final static String split_value = "split_value";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         default_split = String.valueOf(pref.getInt("default_split", 2));
 
         tip_percent = default_tip;
-        split_num = default_split;
+        split_value = default_split;
 
        if (savedInstanceState == null) {
             amount = "";
@@ -60,11 +68,29 @@ public class MainActivity extends AppCompatActivity {
         tip_amount = (TextView) findViewById(R.id.tip_amount);
         total = (TextView) findViewById(R.id.total);
         split = (TextView) findViewById(R.id.split_amount);
-        tip_value = (TextView) findViewById(R.id.tip_option);
-        split_value = (TextView) findViewById(R.id.split_option);
 
-        tip_value.setText(tip_percent.toString() + "%");
-        split_value.setText(split_num.toString());
+        tip_button = (Button) findViewById(R.id.tip_option);
+        split_button = (Button) findViewById(R.id.split_option);
+
+        tip_button.setText(tip_percent.toString() + "%");
+        split_button.setText(split_value.toString());
+
+        tip_alertDialog = tip_dialog();
+        split_alertDialog = split_dialog();
+
+        tip_button.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tip_alertDialog.show();
+            }
+        });
+
+        split_button.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                split_alertDialog.show();
+            }
+        });
 
         TextView one = (TextView) findViewById(R.id.one);
         TextView two = (TextView) findViewById(R.id.two);
@@ -128,10 +154,10 @@ public class MainActivity extends AppCompatActivity {
             default_tip = String.valueOf(pref.getInt("default_tip", 15));
 
             tip_percent = default_tip;
-            split_num = default_split;
+            split_value = default_split;
 
-            tip_value.setText(tip_percent.toString() + "%");
-            split_value.setText(split_num.toString());
+            tip_button.setText(tip_percent.toString() + "%");
+            split_button.setText(split_value.toString());
 
             calc_amount();
             return true;
@@ -146,18 +172,20 @@ public class MainActivity extends AppCompatActivity {
         BigDecimal f_total;
         BigDecimal f_split;
 
+        String _tip_percent;
+
         if (amount.length() == 0 | amount.equals("")) {
             f_amount = BigDecimal.ZERO;
         } else {
             f_amount = new BigDecimal(amount).divide(new BigDecimal("100"));
         }
 
-        tip_percent = tip_percent.replace("%", "");
-        f_tip = new BigDecimal(tip_percent).divide(new BigDecimal("100"));
+        _tip_percent = tip_percent.replace("%", "");
+        f_tip = new BigDecimal(_tip_percent).divide(new BigDecimal("100"));
         f_tip = f_tip.multiply(f_amount);
         f_total = f_amount.add(f_tip);
 
-        f_split = f_total.divide(new BigDecimal(split_num), 2, BigDecimal.ROUND_HALF_UP);
+        f_split = f_total.divide(new BigDecimal(split_value), 2, BigDecimal.ROUND_HALF_UP);
 
         NumberFormat n = NumberFormat.getInstance();
         n.setMinimumFractionDigits(2);
@@ -201,4 +229,75 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    private AlertDialog tip_dialog() {
+        final AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog, null);
+
+        d.setTitle(R.string.tip_dialog_msg);
+        d.setView(dialogView);
+
+        final NumberPicker numberPicker = (NumberPicker) dialogView.findViewById(R.id.number_picker);
+        numberPicker.setMaxValue(100);
+        numberPicker.setMinValue(0);
+        numberPicker.setValue(Integer.parseInt(tip_percent));
+        numberPicker.setWrapSelectorWheel(false);
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {}
+        });
+
+        d.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String val = String.valueOf(numberPicker.getValue());
+                tip_percent = val;
+                tip_button.setText(val + "%");
+                calc_amount();
+            }
+        });
+
+        d.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {}
+        });
+        AlertDialog alertDialog = d.create();
+        return alertDialog;
+    }
+
+    private AlertDialog split_dialog() {
+        final AlertDialog.Builder d = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog, null);
+
+        d.setTitle(R.string.split_dialog_msg);
+        d.setView(dialogView);
+
+        final NumberPicker numberPicker = (NumberPicker) dialogView.findViewById(R.id.number_picker);
+        numberPicker.setMaxValue(30);
+        numberPicker.setMinValue(1);
+        numberPicker.setValue(Integer.parseInt(split_value));
+        numberPicker.setWrapSelectorWheel(false);
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {}
+        });
+
+        d.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String val = String.valueOf(numberPicker.getValue());
+                split_value = val;
+                split_button.setText(val);
+                calc_amount();
+            }
+        });
+
+        d.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {}
+        });
+        AlertDialog alertDialog = d.create();
+        return alertDialog;
+    }
 }
