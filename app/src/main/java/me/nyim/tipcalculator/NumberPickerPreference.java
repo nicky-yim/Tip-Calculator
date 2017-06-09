@@ -12,11 +12,12 @@ import android.widget.NumberPicker;
 
 public class NumberPickerPreference extends DialogPreference {
 
-        public int MAX_VALUE = 100;
-        public int MIN_VALUE = 1;
+        private int MAX_VALUE = 100;
+        private int MIN_VALUE = 1;
+        private boolean PERCENTAGE = false;
 
         // enable or disable the 'circular behavior'
-        public static final boolean WRAP_SELECTOR_WHEEL = false;
+        private static final boolean WRAP_SELECTOR_WHEEL = false;
 
         private NumberPicker picker;
         private int value;
@@ -25,12 +26,14 @@ public class NumberPickerPreference extends DialogPreference {
             super(context, attrs);
             MAX_VALUE = attrs.getAttributeIntValue(null, "max", 100);
             MIN_VALUE = attrs.getAttributeIntValue(null, "min", 1);
+            PERCENTAGE = attrs.getAttributeBooleanValue(null, "percentage", false);
         }
 
         public NumberPickerPreference(Context context, AttributeSet attrs, int defStyleAttr) {
             super(context, attrs, defStyleAttr);
             MAX_VALUE = attrs.getAttributeIntValue(null, "max", 100);
             MIN_VALUE = attrs.getAttributeIntValue(null, "min", 1);
+            PERCENTAGE = attrs.getAttributeBooleanValue(null, "percentage", false);
         }
 
         @Override
@@ -51,8 +54,18 @@ public class NumberPickerPreference extends DialogPreference {
         @Override
         protected void onBindDialogView(View view) {
             super.onBindDialogView(view);
+
             picker.setMinValue(MIN_VALUE);
             picker.setMaxValue(MAX_VALUE);
+
+            if (PERCENTAGE) {
+                String[] percentage = new String[MAX_VALUE - MIN_VALUE + 1];
+                for (int i = MIN_VALUE; i <= MAX_VALUE; i++) {
+                    percentage[i] = String.valueOf(i) + "%";
+                }
+                picker.setDisplayedValues(percentage);
+            }
+
             picker.setWrapSelectorWheel(WRAP_SELECTOR_WHEEL);
             picker.setValue(getValue());
         }
@@ -81,7 +94,10 @@ public class NumberPickerPreference extends DialogPreference {
         public void setValue(int value) {
             this.value = value;
             persistInt(this.value);
-            this.setSummary(String.valueOf(value));
+
+            String summary = String.valueOf(value);
+            if (PERCENTAGE) { summary += "%"; }
+            this.setSummary(String.valueOf(summary));
         }
 
         public int getValue() {
