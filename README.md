@@ -13,12 +13,12 @@ What do you expect?
 - [x] Tip percentage selection
 - [x] Split bill
 - [x] Immediate calculation -- no need to press the ugly "Calculate" button
+- [x] Settings - default tip percent and splits (is it how you call it? split/splits/split amount/number of splits?)
+- [x] A reset button to reset tip percent and split to default values
 - [x] Not exactly a feature but I guess it looks cooler than some other tip calculators?
 
 # TO-DO
-- [x] Settings - default tip percent and splits (is it how you call it? split/splits/split amount/number of splits?)
-- [x] A reset button to reset tip percent and split to default values
-- [x] App icon (cuz it's cool?)
+
 - [ ] better design? Idk. Maybe onPressed effect on keypad? Need to do some reading on Android material design :joy:
 
 # Screenshots
