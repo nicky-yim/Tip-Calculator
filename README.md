@@ -20,3 +20,9 @@ What do you expect?
 - [x] A reset button to reset tip percent and split to default values
 - [x] App icon (cuz it's cool?)
 - [ ] better design? Idk. Maybe onPressed effect on keypad? Need to do some reading on Android material design :joy:
+
+# Screenshots
+Who doesn't like screenshots?
+
+
+<img src="Screenshot/1.png" width="33%" /><img src="Screenshot/2.png" width="33%" /><img src="Screenshot/3.png" width="33%" />
