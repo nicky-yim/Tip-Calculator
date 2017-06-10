@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Tip-Calculator.iml" filepath="$PROJECT_DIR$/Tip-Calculator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TipCalculator.iml" filepath="$PROJECT_DIR$/TipCalculator.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

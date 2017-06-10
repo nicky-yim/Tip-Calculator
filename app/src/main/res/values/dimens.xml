@@ -8,7 +8,7 @@
     <dimen name="bill_font">26sp</dimen>
     <dimen name="split_font">18sp</dimen>
     <dimen name="keypad_font">36sp</dimen>
-    <dimen name="content_wrap_margin">32dp</dimen>
+    <dimen name="content_wrap_margin">16dp</dimen>
     <dimen name="content_top_margin">8dp</dimen>
     <dimen name="content_bottom_margin">8dp</dimen>
     <dimen name="bill_padding">16dp</dimen>

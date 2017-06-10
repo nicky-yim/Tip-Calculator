@@ -22,6 +22,10 @@ import java.text.NumberFormat;
 public class MainActivity extends AppCompatActivity {
 
     private TextView bill_amount, tip_amount, total, split = null;
+    private Button one, two, three, four, five, six, seven, eight, nine, zero, clr, del = null;
+    private Button[] buttons = {one, two, three, four, five, six, seven, eight, nine, zero, clr, del};
+    private int[] button_ids = {R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six,
+            R.id.seven, R.id.eight, R.id.nine, R.id.zero, R.id.clr, R.id.del};
 
     private Button tip_button, split_button = null;
     private AlertDialog tip_alertDialog, split_alertDialog = null;
@@ -61,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             amount = savedInstanceState.getString(BILL_AMOUNT);
         }
 
-
         bill_amount = (TextView) findViewById(R.id.bill_amount);
         tip_amount = (TextView) findViewById(R.id.tip_amount);
         total = (TextView) findViewById(R.id.total);
@@ -90,33 +93,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        for (int i = 0; i < buttons.length; i++) {
+            buttons[i] = (Button) findViewById(button_ids[i]);
+        }
 
-        TextView one = (TextView) findViewById(R.id.one);
-        TextView two = (TextView) findViewById(R.id.two);
-        TextView three = (TextView) findViewById(R.id.three);
-        TextView four = (TextView) findViewById(R.id.four);
-        TextView five = (TextView) findViewById(R.id.five);
-        TextView six = (TextView) findViewById(R.id.six);
-        TextView seven = (TextView) findViewById(R.id.seven);
-        TextView eight = (TextView) findViewById(R.id.eight);
-        TextView nine = (TextView) findViewById(R.id.nine);
-        TextView zero = (TextView) findViewById(R.id.zero);
-        TextView clr = (TextView) findViewById(R.id.clr);
-        TextView del = (TextView) findViewById(R.id.del);
-
-        // Might not be the best way to do it but meh
-        one.setOnClickListener(new KeypadListener());
-        two.setOnClickListener(new KeypadListener());
-        three.setOnClickListener(new KeypadListener());
-        four.setOnClickListener(new KeypadListener());
-        five.setOnClickListener(new KeypadListener());
-        six.setOnClickListener(new KeypadListener());
-        seven.setOnClickListener(new KeypadListener());
-        eight.setOnClickListener(new KeypadListener());
-        nine.setOnClickListener(new KeypadListener());
-        zero.setOnClickListener(new KeypadListener());
-        clr.setOnClickListener(new KeypadListener());
-        del.setOnClickListener(new KeypadListener());
+        for (Button b : buttons) {
+            b.setOnClickListener(new buttonListener());
+        }
 
         calc_amount();
     }
@@ -217,11 +200,11 @@ public class MainActivity extends AppCompatActivity {
         calc_amount();
     }
 
-    private class KeypadListener implements View.OnClickListener {
+    private class buttonListener implements Button.OnClickListener {
 
         @Override
-        public void onClick(View view) {
-            update_amount(((TextView) view).getText().toString());
+        public void onClick(View v) {
+            update_amount(((Button) v).getText().toString());
         }
     }
 

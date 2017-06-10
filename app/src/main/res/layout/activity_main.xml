@@ -273,34 +273,37 @@
                 android:weightSum="3"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:id="@+id/one"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/one"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:textAlignment="center"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
-                <TextView
+                    android:textSize="@dimen/keypad_font" />
+                <Button
                     android:id="@+id/two"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/two"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
-                <TextView
+                    android:textSize="@dimen/keypad_font" />
+                <Button
                     android:id="@+id/three"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/three"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
+                    android:textSize="@dimen/keypad_font" />
             </LinearLayout>
 
             <LinearLayout
@@ -310,33 +313,36 @@
                 android:weightSum="3"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:id="@+id/four"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/four"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
-                <TextView
+                    android:textSize="@dimen/keypad_font" />
+                <Button
                     android:id="@+id/five"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/five"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
-                <TextView
+                    android:textSize="@dimen/keypad_font" />
+                <Button
                     android:id="@+id/six"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/six"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
+                    android:textSize="@dimen/keypad_font" />
             </LinearLayout>
 
             <LinearLayout
@@ -346,33 +352,36 @@
                 android:weightSum="3"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:id="@+id/seven"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/seven"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
-                <TextView
+                    android:textSize="@dimen/keypad_font" />
+                <Button
                     android:id="@+id/eight"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/eight"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
-                <TextView
+                    android:textSize="@dimen/keypad_font" />
+                <Button
                     android:id="@+id/nine"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/nine"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
+                    android:textSize="@dimen/keypad_font" />
             </LinearLayout>
 
             <LinearLayout
@@ -382,33 +391,36 @@
                 android:weightSum="3"
                 android:orientation="horizontal">
 
-                <TextView
+                <Button
                     android:id="@+id/clr"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/clr"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
-                <TextView
+                    android:textSize="@dimen/keypad_font" />
+                <Button
                     android:id="@+id/zero"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/zero"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
-                <TextView
+                    android:textSize="@dimen/keypad_font" />
+                <Button
                     android:id="@+id/del"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/del"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@android:color/tertiary_text_light"
                     android:gravity="center_vertical|center_horizontal"
-                    android:textSize="@dimen/keypad_font"
-                    android:clickable="true" />
+                    android:textSize="@dimen/keypad_font" />
             </LinearLayout>
 
 
