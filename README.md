@@ -17,9 +17,6 @@ What do you expect?
 - A reset button to reset tip percent and split to default values
 - Not exactly a feature but I guess it looks cooler than some other tip calculators?
 
-# TO-DO
-- [ ] better design? Idk. Maybe onPressed effect on keypad? Need to do some reading on Android material design :joy:
-
 # Screenshots
 Who doesn't like screenshots?
 
